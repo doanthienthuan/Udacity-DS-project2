@@ -40,11 +40,33 @@ def clean_data(df):
     for column in categories:
         # set each value to be the last character of the string
         categories[column] = categories[column].astype('str').str[-1]
-
         # convert column from string to numeric
         categories[column] = pd.to_numeric(categories[column])
     df.drop(['categories'], axis=1, inplace = True)
     df = pd.concat([df, categories], axis=1)
+    df.columns = [
+        'id',                   'message',
+                        'original',                     'genre',
+                      'related',                'request',
+                        'offer',            'aid_related',
+                 'medical_help',       'medical_products',
+            'search_and_rescue',               'security',
+                     'military',            'child_alone',
+                        'water',                   'food',
+                      'shelter',               'clothin',
+                        'mone',         'missing_peope',
+                     'refuges',                  'deth',
+                    'other_id', 'infrastructure_relted',
+                    'transort',              'builings',
+                  'electrcity',                  'tools',
+                    'hositals',                  'shops',
+                  'aid_enters',   'other_infrasructure',
+              'weatherrelated',                'floods',
+                       'storm',                  'fire',
+                   'arthquake',                  'cold',
+                'oter_weather',          'drect_report',    
+    ]
+    df = df[df['related'] != 2]
     final_df = df.drop_duplicates()
     return final_df
 
